@@ -9,12 +9,16 @@ For contributing to the source code, clone the repository and create a new branc
 git clone https://github.com/AutoForceField/AutoForce.git
 git checkout -b my-branch
 ```
-Then proceed with your contributions while following the rules/guidlines which are
-discussed in the following secions for maintaining the code quality.
+Then proceed with your contributions while following the rules and guidlines which
+are discussed in the following secions for maintaining the code quality.
 
-After making sure that all checks are passed, create a pull request.
+After making sure that all standards are met, the branch can be pushed for review
+and pull request:
+```
+git push --set-upstream origin my-branch
+```
 
-TODO: creating pull requests.
+TODO: pull requests.
 
 
 
@@ -24,11 +28,11 @@ A branch should implement a single feature and then immediately be merged to the
 main branch.
 If a branch diverges too much from the main branch, it may never be merged.
 Exceptions are the adding new features through new modules and subpackages with
-minimal changes of existing files.
+minimal changes of the existing files.
 
 
 
-## Desing Patterns
+## Design Patterns
 
 - Abstract Base Classes (ABCs): TODO
 - Functional mindset: TODO
