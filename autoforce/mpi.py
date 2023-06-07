@@ -1,14 +1,19 @@
 """
 MPI-parallelism interface.
 
-The "Distributed" class is an abstract base class for all classes
-that implement MPI-parallelism. Any class that is not a subclass
-of "Distributed" is assumed to be serial.
-
 """
+from __future__ import annotations
+
 import abc
+import typing
 
 import mpi4py.MPI as MPI
+
+
+class Distributable(abc.ABC):
+    @abc.abstractmethod
+    def distribute(self, comm: MPI.Intracomm) -> Distributed:
+        ...
 
 
 class Distributed(abc.ABC):
@@ -17,5 +22,13 @@ class Distributed(abc.ABC):
         ...
 
 
-def is_distributed(obj) -> bool:
+def is_distributed(obj: typing.Any) -> bool:
     return isinstance(obj, Distributed)
+
+
+def is_distributable(obj: typing.Any) -> bool:
+    return isinstance(obj, Distributable)
+
+
+def distribute(obj: Distributable, comm: MPI.Intracomm) -> Distributed:
+    return obj.distribute(comm)

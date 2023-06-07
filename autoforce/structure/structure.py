@@ -6,15 +6,14 @@ from __future__ import annotations
 
 import abc
 
-import ase
 import numpy as np
 
-from autoforce.mpi import Distributed
+import autoforce.mpi as mpi
 
 
 class Structure(abc.ABC):
     @abc.abstractmethod
-    def get_chemical_symbols(self) -> tuple[str, ...]:
+    def get_labels(self) -> tuple[str, ...]:
         ...
 
     @abc.abstractmethod
@@ -29,20 +28,14 @@ class Structure(abc.ABC):
     def get_pbc(self) -> tuple[bool, bool, bool]:
         ...
 
-    # Derived properties
-    def get_atomic_numbers(self) -> np.ndarray:
-        return np.array(
-            [ase.data.atomic_numbers[s] for s in self.get_chemical_symbols()]
-        )
 
-
-class DistributedStructure(Distributed, Structure):
+class DistributedStructure(mpi.Distributed, Structure):
     @abc.abstractmethod
     def get_local_indices(self) -> np.ndarray:
         ...
 
     @abc.abstractmethod
-    def get_local_chemical_symbols(self) -> tuple[str, ...]:
+    def get_local_labels(self) -> tuple[str, ...]:
         ...
 
     @abc.abstractmethod
@@ -51,29 +44,10 @@ class DistributedStructure(Distributed, Structure):
 
     # Gather local properties
 
-    def get_chemical_symbols(self) -> tuple[str, ...]:
+    def get_labels(self) -> tuple[str, ...]:
+        # TODO: MPI gather
         raise NotImplementedError
 
     def get_positions(self) -> np.ndarray:
+        # TODO: MPI gather
         raise NotImplementedError
-
-
-class ASEStructure(Structure):
-    def __init__(self, atoms: ase.Atoms) -> None:
-        self._atoms = atoms
-
-    def get_chemical_symbols(self) -> tuple[str, ...]:
-        return tuple(self._atoms.get_chemical_symbols())
-
-    def get_positions(self) -> np.ndarray:
-        return self._atoms.get_positions()
-
-    def get_cell(self) -> np.ndarray:
-        return self._atoms.get_cell()
-
-    def get_pbc(self) -> tuple[bool, bool, bool]:
-        x, y, z = self._atoms.get_pbc()
-        return x, y, z
-
-    def get_atomic_numbers(self) -> np.ndarray:
-        return self._atoms.get_atomic_numbers()
