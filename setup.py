@@ -14,7 +14,7 @@ setup(
     description="machine learning force-fields",
     packages=find_packages(),
     python_requires=">=3.7",
-    install_requires=["torch", "ase", "numpy", "scipy"],
+    install_requires=["torch", "ase", "numpy", "mpi4py"],
     url="https://github.com/AutoForceField/AutoForce",
     license="MIT",
 )
