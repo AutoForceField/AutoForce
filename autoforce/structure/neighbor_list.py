@@ -21,6 +21,11 @@ class NeighborList(Structure, abc.ABC):
         ...
 
     # Drived methods
+    def get_neighbors_labels(self, index: int) -> tuple[str, ...]:
+        labels = self.get_labels()
+        neighbors = self.get_neighbors(index)
+        return tuple(labels[i] for i in neighbors)
+
     def get_neighbors_displacements(
         self, index: int
     ) -> np.ndarray:  # 2D float array
