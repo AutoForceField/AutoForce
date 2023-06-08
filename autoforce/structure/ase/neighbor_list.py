@@ -9,12 +9,14 @@ from .structure import ASEStructureMixin
 class ASENeighborListMixin:
     _nl: _ase_NeighborList
 
-    def get_neighbors(self, index: int) -> np.ndarray:  # 1D int array
+    def get_neighbors_indices(self, index: int) -> np.ndarray:  # [:] int array
         neighbors: np.ndarray
         neighbors, offsets = self._nl.get_neighbors(index)
         return neighbors
 
-    def get_neighbors_offsets(self, index: int) -> np.ndarray:  # 2D int array
+    def get_neighbors_offsets(
+        self, index: int
+    ) -> np.ndarray:  # [:, 3] int array
         neighbors, offsets = self._nl.get_neighbors(index)
         return offsets
 
@@ -33,4 +35,4 @@ class ASENeighborList(ASENeighborListMixin, ASEStructureMixin, NeighborList):
         self._nl.update(self._atoms)
 
     def get_cutoff(self) -> float:
-        return self._nl.cutoff
+        return self._cutoff

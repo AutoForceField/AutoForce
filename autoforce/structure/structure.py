@@ -13,15 +13,15 @@ import autoforce.mpi as mpi
 
 class Structure(abc.ABC):
     @abc.abstractmethod
-    def get_labels(self) -> tuple[str, ...]:
+    def get_types(self) -> np.ndarray:  # [:] int array
         ...
 
     @abc.abstractmethod
-    def get_positions(self) -> np.ndarray:
+    def get_positions(self) -> np.ndarray:  # [:, 3] float array
         ...
 
     @abc.abstractmethod
-    def get_cell(self) -> np.ndarray:
+    def get_cell(self) -> np.ndarray:  # [3, 3] float array
         ...
 
     @abc.abstractmethod
@@ -35,7 +35,7 @@ class DistributedStructure(mpi.Distributed, Structure):
         ...
 
     @abc.abstractmethod
-    def get_local_labels(self) -> tuple[str, ...]:
+    def get_local_types(self) -> np.ndarray:
         ...
 
     @abc.abstractmethod
@@ -44,7 +44,7 @@ class DistributedStructure(mpi.Distributed, Structure):
 
     # Gather local properties
 
-    def get_labels(self) -> tuple[str, ...]:
+    def get_types(self) -> np.ndarray:
         # TODO: MPI gather
         raise NotImplementedError
 
