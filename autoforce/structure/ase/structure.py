@@ -7,8 +7,8 @@ from ..structure import Structure
 class ASEStructureMixin:
     _atoms: ase.Atoms
 
-    def get_labels(self) -> tuple[str, ...]:
-        return tuple(self._atoms.get_chemical_symbols())
+    def get_types(self) -> np.ndarray:
+        return self._atoms.get_atomic_numbers()
 
     def get_positions(self) -> np.ndarray:
         return self._atoms.get_positions()

@@ -10,10 +10,13 @@ def test_ASENeighborList() -> None:
     nl = ASENeighborList(atoms, cutoff)
     for i in range(len(atoms)):
         displacements = nl.get_neighbors_displacements(i)
-        neighbors = nl.get_neighbors(i)
+        neighbors = nl.get_neighbors_indices(i)
+        types = nl.get_neighbors_types(i)
         offsets = nl.get_neighbors_offsets(i)
         distances = np.linalg.norm(displacements, axis=1)
-        assert len(neighbors) == len(displacements) == len(offsets)
+        assert (
+            len(neighbors) == len(displacements) == len(offsets) == len(types)
+        )
         assert np.all(distances < cutoff)
 
 
