@@ -9,8 +9,7 @@ class NeighborList(Structure, abc.ABC):
     # Since a neighbor list is associated with a structure,
     # it should inherit from the structure class.
     @abc.abstractmethod
-    def get_cutoff(self) -> float:
-        ...
+    def get_cutoff(self) -> float: ...
 
     @abc.abstractmethod
     def get_neighbors_indices(self, index: int) -> np.ndarray:  # [:] int array
