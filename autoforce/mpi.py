@@ -2,6 +2,7 @@
 MPI-parallelism interface.
 
 """
+
 from __future__ import annotations
 
 import abc
@@ -12,14 +13,12 @@ import mpi4py.MPI as MPI
 
 class Distributable(abc.ABC):
     @abc.abstractmethod
-    def distribute(self, comm: MPI.Intracomm) -> Distributed:
-        ...
+    def distribute(self, comm: MPI.Intracomm) -> Distributed: ...
 
 
 class Distributed(abc.ABC):
     @abc.abstractmethod
-    def get_mpi_comm(self) -> MPI.Intracomm:
-        ...
+    def get_mpi_comm(self) -> MPI.Intracomm: ...
 
 
 def is_distributed(obj: typing.Any) -> bool:
