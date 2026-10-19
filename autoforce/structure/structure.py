@@ -2,6 +2,7 @@
 Structure and MPI-parallelism interface.
 
 """
+
 from __future__ import annotations
 
 import abc
@@ -25,22 +26,18 @@ class Structure(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def get_pbc(self) -> tuple[bool, bool, bool]:
-        ...
+    def get_pbc(self) -> tuple[bool, bool, bool]: ...
 
 
 class DistributedStructure(mpi.Distributed, Structure):
     @abc.abstractmethod
-    def get_local_indices(self) -> np.ndarray:
-        ...
+    def get_local_indices(self) -> np.ndarray: ...
 
     @abc.abstractmethod
-    def get_local_types(self) -> np.ndarray:
-        ...
+    def get_local_types(self) -> np.ndarray: ...
 
     @abc.abstractmethod
-    def get_local_positions(self) -> np.ndarray:
-        ...
+    def get_local_positions(self) -> np.ndarray: ...
 
     # Gather local properties
 
