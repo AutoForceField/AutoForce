@@ -30,5 +30,4 @@ class DescriptorFunction(abc.ABC):
         displacements: torch.Tensor,  # [:, 3] float Tensor
         types: torch.Tensor,  # [:] int Tensor
         weights: torch.Tensor | None = None,  # scalar or [:] float Tensor
-    ) -> DescriptorType:
-        ...
+    ) -> DescriptorType: ...
